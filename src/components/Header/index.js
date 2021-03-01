@@ -1,9 +1,8 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import useAuth from 'hooks/useAuth'
 import { Container } from 'components/Layout'
-import Button from 'components/Button'
 
 const Header = () => {
 	const history = useHistory()
@@ -18,14 +17,12 @@ const Header = () => {
 	return (
 		<Wrapper>
 			<HeaderContainer>
-				<Logo>Wedbook</Logo>
-				{user ? (
+				<Logo>
+					<NavLink to="/">Wedbook</NavLink>
+				</Logo>
+				{user && (
 					<div>
 						{user?.email} <Link onClick={handleLogout}>(sair)</Link>
-					</div>
-				) : (
-					<div>
-						<Button color="primary" size="small">Login</Button>
 					</div>
 				)}
 			</HeaderContainer>
@@ -56,6 +53,11 @@ const Logo = styled.h2`
 	margin: 0;
 	padding: 0;
 	color: #333;
+
+	a {
+		color: #333;
+		text-decoration: none;
+	}
 `
 
 const Link = styled.span`

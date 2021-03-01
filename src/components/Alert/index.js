@@ -9,6 +9,10 @@ const colors = {
 		text: '#558b2f',
 		bg: '#f1f8e9'
 	},
+	info: {
+		text: '#052f8b',
+		bg: '#dae9f8'
+	},
 }
 
 const Alert = styled.div`

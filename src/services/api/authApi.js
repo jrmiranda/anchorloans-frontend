@@ -11,7 +11,7 @@ const authApi = {
 	},
 
 	getProfile: () => {
-		return api.get(`http://localhost:8000/users/me`)
+		return api.get(`/users/me`)
 	},
 }
 
