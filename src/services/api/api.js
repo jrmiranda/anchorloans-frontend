@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { getToken } from '../auth'
+import { getLocalToken } from '../auth'
 
 const api = axios.create({
-	baseURL: 'http://localhost:3333'
+	baseURL: 'http://localhost:8000'
 })
 
 api.interceptors.request.use(async config => {
-	const token = getToken()
+	const token = getLocalToken()
 
 	if (token)
 		config.headers.Authorization = `Bearer ${token}`

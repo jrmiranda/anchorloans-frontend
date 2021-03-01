@@ -1,8 +1,12 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { isAuthenticated } from 'lib/auth'
+import { isAuthenticated } from 'services/auth'
 
-export const UserRoute = ({ component: Component, template: Template, restrict, fallback, ...rest }) => {
+// Templates
+//import MainTemplate from 'templates/main'
+//import DashboardTemplate from 'templates/dashboard'
+
+export const CustomRoute = ({ component: Component, template: Template, restrict, fallback, ...rest }) => {
 	let shouldRender = false
 
 	switch (restrict) {
@@ -21,30 +25,35 @@ export const UserRoute = ({ component: Component, template: Template, restrict, 
 
 	if (!Template) {
 		Template = ({ children }) => (
-			<div>{children}</div>
+			<>{children}</>
 		)
 	}
 
-	return (<Route {...rest} render={props => 
-		shouldRender ? (
-			<Template>
-				<Component {...props} />
-			</Template>
-		) : (
-			<Redirect to={fallback || '?'} />
-		)
-	}
-/>)
+	return (
+		<Route {...rest} render={props => 
+			shouldRender ? (
+				<Template>
+					<Component {...props} />
+				</Template>
+			) : (
+				<Redirect to={{
+					pathname: fallback || '/',
+					state: { from: props.location }
+				}} />
+			)
+		}
+		/>
+	)
 }
 
-export const PublicRoute = ({ component: Component, rest }) => (
-	<UserRoute component={Component} restrict="public" {...rest} />
+export const PublicRoute = ({ component: Component, ...rest }) => (
+	<CustomRoute component={Component} restrict="public" {...rest} />
 )
 
-export const PrivateRoute = ({ component: Component, rest }) => (
-	<UserRoute component={Component} restrict="private" fallback="/login" {...rest} />
+export const PrivateRoute = ({ component: Component, ...rest }) => (
+	<CustomRoute component={Component} restrict="private" fallback="/login" {...rest} />
 )
 
-export const GuestRoute = ({ component: Component, rest }) => (
-	<UserRoute component={Component} restrict="guest" {...rest} />
+export const GuestRoute = ({ component: Component, ...rest }) => (
+	<CustomRoute component={Component} restrict="guest" {...rest} />
 )

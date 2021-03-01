@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import Routes from 'routes'
 import GlobalStyle from 'styles/global'
 import theme from 'styles/theme'
-import { Container } from 'react-spine'
+import { Wrapper, Main } from 'components/Layout'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 
@@ -13,11 +13,13 @@ const App = () => {
 		<ThemeProvider theme={theme}>
 			<GlobalStyle/>
 				<BrowserRouter>
-					<Container>
+					<Wrapper>
 						<Header/>
-						<Routes/>
+						<Main>
+							<Routes/>
+						</Main>
 						<Footer/>
-					</Container>
+					</Wrapper>
 				</BrowserRouter>
 		</ThemeProvider>
 	);
