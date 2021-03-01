@@ -7,7 +7,7 @@ const Album = ({ photos, mode, onAprove, onDecline }) => {
 	return (
 		<Wrapper>
 			{photos.map(photo => (
-				<Photo mode={mode}>
+				<Photo mode={mode} key={photo._id}>
 					<div>
 						<NavLink to={`/photo/${photo._id}`}>
 							<Thumb src={photo.url} />
