@@ -24,7 +24,7 @@ const photoApi = {
 	},
 
 	photoComment: (id, data) => {
-		return api.post(`/photo/${id}/comment`, data)
+		return api.post(`/photos/${id}/comment`, data)
 	}
 }
 

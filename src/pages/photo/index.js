@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import useRequest from 'hooks/useRequest'
@@ -10,9 +10,19 @@ import Comments from 'components/Comments'
 const PhotoPage = () => {
 	const { id } = useParams()
 	const { data: photo, loading, error } = useRequest(api.getPhoto, id)
+	const [comments, setComments] = useState()
 
-	const handleComment = comment => {
-		alert(comment)
+	useEffect(() => {
+		setComments(photo.comments)
+	}, photo.comments)
+
+	const handleComment = async comment => {
+		try {
+			const response = await api.photoComment(id, { text: comment })
+			setComments([...comments, response.data])
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	if (loading || error) return (
@@ -26,7 +36,7 @@ const PhotoPage = () => {
 	return (
 		<Container size="compact">
 			<Photo src={photo.url} />
-			<Comments comments={photo.comments} onComment={handleComment} />
+			<Comments comments={comments} onComment={handleComment} />
 		</Container>
 	);
 }

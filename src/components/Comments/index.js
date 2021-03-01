@@ -6,7 +6,10 @@ const Comments = ({ comments, onComment }) => {
 
 	const handleSubmit = e => {
 		e.preventDefault()
-		onComment(comment)
+		if (comment.length > 2) {
+			setComment('')
+			onComment(comment)
+		}
 	}
 
 	return (
@@ -14,7 +17,7 @@ const Comments = ({ comments, onComment }) => {
 			<Title>Comments</Title>
 
 			<form onSubmit={handleSubmit}>
-				<Input onChange={e => setComment(e.target.value)} placeholder="Add a comment..." />
+				<Input onChange={e => setComment(e.target.value)} value={comment} placeholder="Add a comment..." />
 			</form>
 
 			{comments && comments.map(comment => (

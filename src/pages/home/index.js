@@ -30,7 +30,7 @@ const HomePage = () => {
 		<Page.Status
 			loading={loading}
 			error={error}
-			errorMsg="Não foi possível carregar o processo. Tente novamente."
+			errorMsg="An error occurred. Try again."
 		/>
 	)
 
